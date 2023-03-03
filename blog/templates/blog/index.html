@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    My Blog
+{% endblock title %}
+
+
+{% block css_files %}
+   <link rel="stylesheet" href="{% static 'blog/index.css' %}"> 
+{% endblock css_files %}
+
+{% block content %}
+
+<section id='welcome'>
+    <header>
+        <img src="{% static 'blog/img/woods.jpg' %}" alt="TEST BLOG">
+        <h2>TEST BLOG</h2>
+    </header>
+    <p>Lorem ipsum dolor sit amet.</p>
+</section>
+    <section id='latest-posts'>
+        <h2>Lorem ipsum dolor sit amet consectetur adipisicing.</h2>
+        
+
+        <ul>
+            <li>
+                <article class="post">
+                    <a href="">
+                        <img class="mountain" src="{% static 'blog/img/mountains.jpg' %}" alt="Mountain">
+                        <div class="post__content">
+                            <h3>Mountain Hiking</h3>
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, repudiandae.
+                                Lorem ipsum dolor sit amet.
+                            </p>
+                        </div>
+                    </a>
+                </article>
+            </li>
+        </ul>
+    </section>
+
+    <setcion id="about">
+        <h2>Lorem, ipsum dolor.</h2>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+            Quibusdam tempore ex aut autem mollitia atque!
+            Ipsa ipsum esse ducimus vitae exercitationem id odit eum tempora,
+            alias, aperiam provident eos minima!
+        </p>
+        <p>
+            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
+            Lorem ipsum dolor sit amet.
+        </p>
+    </setcion>
+{% endblock content %}
