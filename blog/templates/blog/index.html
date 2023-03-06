@@ -7,6 +7,7 @@
 
 
 {% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/post.css' %}">
    <link rel="stylesheet" href="{% static 'blog/index.css' %}"> 
 {% endblock css_files %}
 
@@ -24,20 +25,9 @@
         
 
         <ul>
-            <li>
-                <article class="post">
-                    <a href="">
-                        <img class="mountain" src="{% static 'blog/img/mountains.jpg' %}" alt="Mountain">
-                        <div class="post__content">
-                            <h3>Mountain Hiking</h3>
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio, repudiandae.
-                                Lorem ipsum dolor sit amet.
-                            </p>
-                        </div>
-                    </a>
-                </article>
-            </li>
+            {% for post in posts %}
+                 {% include 'blog/includes/post.html' %}
+            {% endfor %}
         </ul>
     </section>
 
