@@ -13,8 +13,8 @@
     <section id="summary">
         <h2>{{ post.title }}</h2>
         <article>
-            <img src="{% static 'blog/img/'|add:post.image %}" alt="Post title">
-            <address>{{ post.author | title }}</address>
+            <img src="{% static 'blog/img/'|add:post.image_name %}" alt="Post title">
+            <address> By <a href="mailto: post.email">{{ post.author | title }}</a></address>
             <div>
                 Last update on <time>{{ post.date| date:"d M Y" }}</time>
             </div>
