@@ -12,8 +12,13 @@
 {% block content %}
     <section id="summary">
         <h2>{{ post.title }}</h2>
+        <div>
+            {% for tag in post_tags %}
+                <span class="tag">{{ tag.caption }}</span>
+            {% endfor %}
+        </div>
         <article>
-            <img src="{% static 'blog/img/'|add:post.image_name %}" alt="Post title">
+            <img src="{{ post.image.url }}" alt="Post title">
             <address> By <a href="mailto: post.email">{{ post.author | title }}</a></address>
             <div>
                 Last update on <time>{{ post.date| date:"d M Y" }}</time>
@@ -25,4 +30,18 @@
     {{ post.content| linebreaks}}
 </main>
 
+
+<section id="comment-form">
+    <h2>Your Comment</h2>
+    <form>
+        {% for form_field in comment_form %}
+            <div class="form-control">
+                {{ form_field.label_tag }}
+                {{ form_field }}
+                {{ form_fields.errors }}
+            </div>
+        {% endfor %}
+        <button>Send</button>
+    </form>
+</section>
 {% endblock content %}
