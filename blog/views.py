@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from datetime import date
 from django.views.generic import ListView, DetailView
+from django.views import View
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from .models import Author, Post, Tag
 from .forms import CommentForm
@@ -40,18 +43,30 @@ class AllPosts(ListView):
     context_object_name = 'posts'
 
 
-def post_detail(request, slug):
-    ident_post = get_object_or_404(Post, slug = slug)
-    return render(request, 'blog/post-detail.html',{
-        'post': ident_post
-    })
+class PostDetail(View):
 
-class PostDetail(DetailView):
-    template_name = 'blog/post-detail.html'
-    model = Post
+    def get(self, requests, slug):
+        post = Post.objects.get(slug=slug)
+        context = {
+            'post': post,
+            'post_tags': post.tag.all(),
+            'comment_form' : CommentForm()
+        }
+        return render(requests, 'blog/post-detail.html', context)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['post_tags'] = self.object.tag.all()
-        context['comment_form'] = CommentForm()
-        return context
+    def post(self, requests, slug):
+        comment_form = CommentForm(requests.POST)
+        post = Post.objects.get(slug=slug)
+
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.post = post
+            comment.save()
+
+            return HttpResponseRedirect(reverse('post-detail-page', args =[slug]))
+        context = {
+            'post': post,
+            'post_tags': post.tag.all(),
+            'comment_form' : comment_form
+        }
+        return render(requests, 'blog/post-detail.html', context)
