@@ -26,6 +26,11 @@
                 <span class="tag">{{ tag.caption }}</span>
             {% endfor %}
         </div>
+
+        <div class="read-later">
+            <button>Read Late</button>
+        </div>
+
         <article>
             <img src="{{ post.image.url }}" alt="Post title">
             <address> By <a href="mailto: post.email">{{ post.author | title }}</a></address>
@@ -39,6 +44,18 @@
 <main>
     {{ post.content| linebreaks}}
 </main>
+
+<section id="comments">
+    <ul>
+        {% for comment in comments %}
+        <li>            
+            <h2>{{ comment.user_name }}</h2>
+            <p>{{ comment.comment_imput }}</p>
+        </li>
+
+        {% endfor %}
+    </ul>
+</section>
 
 
 <section id="comment-form">

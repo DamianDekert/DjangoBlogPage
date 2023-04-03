@@ -40,4 +40,7 @@ class Comments(models.Model):
     comment_imput = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
 
+    def __str__(self) -> str:
+        return f'{self.user_name}, {self.user_email}'
+
 
