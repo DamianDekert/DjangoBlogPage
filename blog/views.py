@@ -10,12 +10,6 @@ from .forms import CommentForm
 
 all_posts = Post.objects.all()
 
-# Create your views here.
-# def starting_page(request):
-#     sorted_post = all_posts.order_by('-date')[:3]
-#     return render(request, 'blog/index.html', {
-#         'posts': sorted_post,
-#     })
 
 class StartingPage(ListView):
     template_name = 'blog/index.html'
@@ -28,13 +22,6 @@ class StartingPage(ListView):
         data = queryset[:3]
         return data
     
-
-
-# def posts(request):
-#     all_posts_date = all_posts.order_by("-date")
-#     return render(request, "blog/all-posts.html", {
-#         'posts': all_posts_date,
-#     })
 
 class AllPosts(ListView):
     template_name = "blog/all-posts.html"
@@ -72,3 +59,11 @@ class PostDetail(View):
             'comments' : post.comments.all().order_by('-id')
         }
         return render(requests, 'blog/post-detail.html', context)
+
+class ReadLaterView(View):
+
+    def post(self, request):
+        stored_post = request.session.get('stored-post')
+
+        if stored_post is None:
+            stored_post = []
